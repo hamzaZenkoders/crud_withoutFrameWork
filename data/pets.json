@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "petName": "Romeo",
+    "petAge": 7,
+    "petCategory": "Cat",
+    "color": "grey and white",
+    "owner": "Hamza"
+  },
+  {
+    "id": 4,
+    "petName": "taha",
+    "petAge": 5,
+    "petCategory": "Cat",
+    "color": "Brown",
+    "owner": "Uzair"
+  },
+  {
+    "id": 3,
+    "petName": "Simba",
+    "petAge": 3,
+    "petCategory": "Cow",
+    "color": "Light brown",
+    "owner": "Taha"
+  },
+  {
+    "id": 9,
+    "petName": "Silky",
+    "petAge": 1,
+    "petCategory": "hen",
+    "color": "black",
+    "owner": "Ehtasham"
+  }
+]

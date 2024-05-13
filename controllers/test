@@ -1,0 +1,133 @@
+/* let pets = [
+    { id: 1, name: 'Cat', type: 'Mammal' },
+    { id: 2, name: 'Dog', type: 'Mammal' },
+    { id: 3, name: 'Parrot', type: 'Bird' }
+];
+ */
+/* const petsData = require('../data/petsData');
+
+exports.getItems = (req, res) => {
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify(petsData)); 
+};
+
+exports.createItem = (req, res) => {
+    let body = '';
+    req.on('data', (chunk) => {
+        body += chunk.toString();
+    });
+    req.on('end', () => {
+        const newItem = JSON.parse(body);
+        newItem.id = petsData.length + 1; // Assign a unique ID
+        pets.push(newItem); // Add the new item to the pets array
+        res.writeHead(201, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(newItem));
+    });
+};
+
+exports.updateItem = (req, res) => {
+    const id = parseInt(req.params.id);
+    let body = '';
+    req.on('data', (chunk) => {
+        body += petsData.toString();
+    });
+    req.on('end', () => {
+        const updatedItem = JSON.parse(body);
+        let updated = false;
+        petsData.forEach((pet) => {
+            if (pet.id === id) {
+                Object.assign(pet, updatedItem); // Update the item properties
+                updated = true;
+            }
+        });
+        if (updated) {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ message: `Item with ID ${id} updated successfully` }));
+        } else {
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ message: `Item with ID ${id} not found` }));
+        }
+    });
+};
+
+exports.deleteItem = (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = petsData.findIndex(pet => pet.id === id);
+    if (index !== -1) {
+        petsData.splice(index, 1); // Remove the item from the pets array
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ message: `Item with ID ${id} deleted successfully` }));
+    } else {
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ message: `Item with ID ${id} not found` }));
+    }
+};
+ */
+
+
+const pets = require("../data/petsData");
+
+
+const getPets = async (req,res) =>{
+    try{
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(pets));
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
+const createPet = async (req,res)=>{
+    let body = '';
+            req.on('data', (chunk) => {
+                body += chunk.toString();
+            });
+            req.on('end', () => {
+                const newPet = JSON.parse(body);
+                
+                pets.push(newPet);
+                res.writeHead(201, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(newPet));
+            });
+}
+
+
+const deletePet = async (req,res,id)=>{ 
+    const index = pets.findIndex(pet => pet.id === id);
+    if (index !== -1) {
+
+        pets.splice(index, 1);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ message: `Pet with ID ${id} deleted successfully` }));
+    } else {
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ message: `Pet with ID ${id} not found` }));
+    }}
+
+    const updatePet = async (req, res, id) => {
+        let body = '';
+        req.on('data', (chunk) => {
+            body += chunk.toString();
+        });
+        req.on('end', () => {
+            const updatedPet = JSON.parse(body);
+            const index = pets.findIndex(pet => pet.id === id);
+            if (index !== -1) {
+                pets[index] = { ...pets[index], ...updatedPet };
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({ message: `Pet with ID ${id} updated successfully` }));
+            } else {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({ message: `Pet with ID ${id} not found` }));
+            }
+        });
+    }
+
+
+module.exports = {
+    getPets,
+    createPet,
+    deletePet,
+    updatePet
+}
